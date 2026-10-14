@@ -547,7 +547,10 @@ body {
 .map-container {
   width: 100%;
   height: 240px;
-  background: #141f36 url('assets/world_map.jpg') no-repeat center center;
+  background-color: #141f36;
+  background-image: url('world_map.jpg'), url('assets/world_map.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
   border-radius: var(--radius-md);
   border: 2px solid #b45309;

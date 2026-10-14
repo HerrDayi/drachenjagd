@@ -139,7 +139,7 @@ const STAGES = [
     mapNode: 0,
     title: '1. Schlosshof von Königin Annalena',
     speaker: '👑 Königin Annalena Al Gebra',
-    portrait: 'assets/queen.jpg',
+    portrait: 'queen.jpg',
     story: '„Sei gegrüßt, tapfere Abenteurerin / tapferer Abenteurer! Der schreckliche Drache Olaf der Schläfrige dezimiert seit Monaten unsere Tiere. Bevor du aufbrichst, musst du ermitteln, wie viele Tiere uns im Königreich überhaupt noch geblieben sind!“',
     instruction: 'Subtrahiere im Kopf, wie viele Tiere jeweils noch übrig sind:',
     type: 'table_subtraction',
@@ -157,7 +157,7 @@ const STAGES = [
     mapNode: 1,
     title: '2. Raubritter Roberts Waffenladen',
     speaker: '🤺 Raubritter Robert',
-    portrait: 'assets/knight.jpg',
+    portrait: 'knight.jpg',
     story: '„Gegen Olaf brauchst du beste Ausrüstung! Im Regal stehen feuerfeste Fechtermasken, magische Lanzen und Pfeile. Leider hast du kein Gold in den Taschen, aber gleich nebenan steht ein königlicher Bankautomat!🏦“',
     instruction: 'Addiere die Preise im Kopf: Wie viel Gold musst du am Bankomat abheben?',
     items: [
@@ -178,7 +178,7 @@ const STAGES = [
     mapNode: 2,
     title: '3. Die Alchemistenküche',
     speaker: '🧪 Meister Alchemist',
-    portrait: 'assets/alchemist.svg',
+    portrait: 'alchemist.svg',
     story: '„Ausrüstung hast du, aber ohne Heiltrank gehst du gegen Olaf unter! Du hast alle Zutaten gesammelt. Wiege sie ganz genau im Kessel ab, sonst explodiert das Gebräu!“',
     instruction: 'Multipliziere im Kopf und berechne die Gesamtmengen:',
     type: 'table_multiplication',
@@ -197,7 +197,7 @@ const STAGES = [
     mapNode: 3,
     title: '4. Die Weggabelung',
     speaker: '🗺 Wegweiser am Scheideweg',
-    portrait: 'assets/world_map.jpg',
+    portrait: 'world_map.jpg',
     story: '„Zur Drachenhöhle führen vier verschiedene Wege. Welcher Weg bringt dich am schnellsten an dein Ziel?“',
     instruction: 'Berechne die Zeiten in Stunden (Strecke geteilt durch Geschwindigkeit) und wähle den schnellsten Weg:',
     type: 'travel_choice',
@@ -215,7 +215,7 @@ const STAGES = [
     mapNode: 4,
     title: '5. Aufbruch mit Pferd Joe',
     speaker: '🐴 Pferd Joe',
-    portrait: 'assets/horse_joe.svg',
+    portrait: 'horse_joe.svg',
     story: '„Du nimmst den Feldweg und sattelst dein treues Pferd Joe. Der Gute ist zwar nicht mehr der Jüngste: Du musst 5 km/h von seiner Geschwindigkeit (20 km/h) abziehen! Wie lange brauchst du für die 15 km Feldweg nun?“',
     instruction: 'Neue Geschwindigkeit: 20 km/h - 5 km/h = 15 km/h. Wie viele Stunden dauert der Ritt?',
     type: 'single_choice',
@@ -229,7 +229,7 @@ const STAGES = [
     mapNode: 5,
     title: '6. Der Möhren-Karren am Wegesrand',
     speaker: '🥕 Gemüsehändler',
-    portrait: 'assets/farmer.svg',
+    portrait: 'farmer.svg',
     story: '„Joe macht schlapp und braucht Futter! Ein freundlicher Bauer bietet Möhren an. Du möchtest das beste Schnäppchen für Joe machen!“',
     instruction: 'Rechne die Preise für 1 Möhre aus und klicke auf das GÜNSTIGSTE Angebot:',
     type: 'best_bargain',
@@ -248,7 +248,7 @@ const STAGES = [
     mapNode: 6,
     title: '7. Donalds Imbissbude',
     speaker: '🌭 Imbisswirt Donald',
-    portrait: 'assets/donald.svg',
+    portrait: 'donald.svg',
     story: '„Joe mampft glücklich, doch jetzt knurrt dein eigener Magen! Donald rechnet in Dollar ab. Kurs: 1 Gold = 1,233 Dollar. Du hast noch genau 3 Gold in der Tasche (3 × 1,233 $ = 3,699 $ ≈ 3,70 $).“',
     instruction: 'Wähle ALLE Gerichte aus, die du dir mit deinen 3 Gold (max. 3,70 $) leisten kannst:',
     type: 'multi_choice',
@@ -271,7 +271,7 @@ const STAGES = [
     mapNode: 7,
     title: '8. Die Drachenhöhle & Das Nickerchen',
     speaker: '📜 Zettel von Olaf an der Höhle',
-    portrait: 'assets/dragon.jpg',
+    portrait: 'dragon.jpg',
     story: '„Du erreichst die Höhle. Drache Olaf ist nicht da! Am Felsen hängt ein Zettel: "Bin um 17:00 Uhr zurück, Olaf". Deine Uhr zeigt 24 Minuten vor drei (14:36 Uhr). Du beschließt, dich bis 16:50 Uhr hinzulegen.“',
     instruction: 'Löse die beiden Zeitaufgaben in Minuten:',
     type: 'double_time',
@@ -287,7 +287,7 @@ const STAGES = [
     mapNode: 8,
     title: '9. Der Kampf: Pfeilhagel & Drachenlanze',
     speaker: '🐲 Drache Olaf der Schläfrige',
-    portrait: 'assets/dragon.jpg',
+    portrait: 'dragon.jpg',
     story: '„ROAAAR! Olaf kreist über dir! Du greifst nach Bogen und Lanze. 20 Pfeile hast du im Köcher und schießt 3 Pfeile pro Minute ab. Danach suchst du mit der Lanze nach einer der dünnen Schuppen (1 von 500 Schuppen bei 100.000 Gesamtschuppen).“',
     instruction: 'Berechne die Schussdauer und die Trefferchance:',
     type: 'battle_inputs',
@@ -304,7 +304,7 @@ const STAGES = [
     mapNode: 9,
     title: '10. Das Rätselduell mit Olaf',
     speaker: '🐲 Drache Olaf der Schläfrige',
-    portrait: 'assets/dragon.jpg',
+    portrait: 'dragon.jpg',
     story: '„Die Lanze prallt ab! Du rufst: "Ehrwürdiger Olaf! Lösen wir das wie vernünftige Wesen im Rätselduell! Wenn ich deine Rätsel löse, ziehst du friedlich ab!" Olaf grinst: "Einverstanden. Löse meine drei Rätsel!"“',
     instruction: 'Beantworte Olafs 3 Prüfungen:',
     type: 'riddle_trio',
@@ -335,7 +335,7 @@ const STAGES = [
     mapNode: 10,
     title: '11. Die Schatzkammer (Epilog)',
     speaker: '👑 Königin Annalena & Königreich Al Gebra',
-    portrait: 'assets/queen.jpg',
+    portrait: 'queen.jpg',
     story: '„Du hast alle Rätsel mit Bravour gemeistert! Olaf schnaubt geschlagen Dampf aus den Nüstern und fliegt für immer davon. In der Höhle findest du den versprochenen Schatz: Eine stolze Drachenjugendspiele-Urkunde und 5.000 winzige Ameisenkinder! Du hast das Königreich gerettet!“',
     instruction: 'Trage deinen Namen ein, um deine persönliche Drachenjäger-Urkunde zu erhalten!',
     type: 'certificate'
@@ -673,7 +673,7 @@ class GameManager {
       <div class="stage-badge">⚔️ Station ${idx + 1} von ${STAGES.length}</div>
       <div class="story-dialog-wrapper">
         <div class="dialog-avatar-box">
-          <img src="${stage.portrait}" alt="${stage.speaker}" class="dialog-avatar-img">
+          <img src="${stage.portrait}" alt="${stage.speaker}" class="dialog-avatar-img" onerror="if(!this.dataset.t){this.dataset.t='1';this.src='assets/'+this.getAttribute('src');}">
         </div>
         <div class="dialog-text-content">
           <div class="speaker-tag">${stage.speaker}</div>

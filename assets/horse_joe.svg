@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#1e293b"/></radialGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="url(#bg)"/>
+  <circle cx="60" cy="60" r="48" fill="#854d0e" opacity="0.2"/>
+  <!-- Horse Head -->
+  <path d="M40,95 Q35,55 52,32 Q62,20 70,26 Q78,32 72,48 L88,62 Q94,72 82,78 L65,78 L60,95 Z" fill="#a16207" stroke="#78350f" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Mane -->
+  <path d="M48,35 Q40,45 42,60 Q38,70 40,85" stroke="#451a03" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Ears -->
+  <polygon points="62,20 68,10 72,22" fill="#a16207" stroke="#78350f" stroke-width="2"/>
+  <polygon points="54,24 58,14 63,25" fill="#78350f"/>
+  <!-- Eye -->
+  <circle cx="66" cy="42" r="4" fill="#0f172a"/>
+  <circle cx="65" cy="41" r="1.5" fill="#ffffff"/>
+  <!-- Muzzle & Nostril -->
+  <ellipse cx="84" cy="68" rx="8" ry="7" fill="#ca8a04"/>
+  <circle cx="84" cy="67" r="2" fill="#451a03"/>
+  <!-- Bridle / Halter -->
+  <path d="M68,46 L82,66 M60,60 L85,63" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="75" cy="56" r="3" fill="#fbbf24"/>
+</svg>
