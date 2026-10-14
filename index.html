@@ -149,6 +149,9 @@
               <button id="btnCheck" class="btn-check">
                 <span>Antwort prüfen ⚔️</span>
               </button>
+              <button id="btnRollD20" class="btn-dice">
+                <span>🎲 D20 würfeln!</span>
+              </button>
               <button id="btnNext" class="btn-next">
                 <span>Weiterziehen ➔</span>
               </button>
@@ -258,6 +261,29 @@
         <button class="calc-btn equals" data-action="equals">=</button>
         <button class="calc-btn" style="grid-column: span 2;">0</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: D20 Würfel -->
+  <div id="diceModal" class="modal-overlay">
+    <div class="dice-container">
+      <div class="dice-title">🎲 Magischer Helden-Würfel</div>
+      <div id="diceVisual" class="dice-visual">
+        <svg viewBox="0 0 100 100" class="d20-svg">
+          <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" fill="#b45309" stroke="#f59e0b" stroke-width="4"/>
+          <polygon points="50,5 50,95" stroke="#78350f" stroke-width="2"/>
+          <polygon points="5,25 95,75" stroke="#78350f" stroke-width="2"/>
+          <polygon points="5,75 95,25" stroke="#78350f" stroke-width="2"/>
+          <text id="diceResultNum" x="50" y="60" font-family="'Cinzel', serif" font-size="32" font-weight="900" fill="#fef08a" text-anchor="middle">20</text>
+        </svg>
+      </div>
+      <div id="diceResultText" class="dice-result-text">Tippe auf Würfeln für mächtige Bonus-XP!</div>
+      <button id="btnRollAction" class="btn-primary" style="margin-top: 14px; font-size: 1.05rem; padding: 12px 24px;">
+        🎲 Jetzt würfeln!
+      </button>
+      <button id="btnCloseDice" class="btn-header" style="margin-top: 10px; display: none;">
+        Weiterziehen ➔
+      </button>
     </div>
   </div>
 

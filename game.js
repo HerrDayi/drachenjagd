@@ -85,6 +85,17 @@ class SoundEngine {
       setTimeout(() => this.playTone(f, 'triangle', 0.35, 0.15), i * 140);
     });
   }
+
+  dice() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        this.playTone(350 + Math.random() * 350, 'triangle', 0.04, 0.08);
+      }, i * 60);
+    }
+  }
 }
 
 const sounds = new SoundEngine();
@@ -346,17 +357,17 @@ const STAGES = [
 // Map Coordinates (11 Nodes across a Fantasy Kingdom)
 // ========================================================
 const MAP_COORDS = [
-  { x: 50,  y: 150, name: 'Schloss' },
-  { x: 120, y: 120, name: 'Waffenladen' },
-  { x: 190, y: 160, name: 'Alchemie' },
-  { x: 270, y: 110, name: 'Weggabelung' },
-  { x: 350, y: 70,  name: 'Pferd Joe' },
-  { x: 440, y: 90,  name: 'Gemüsestand' },
-  { x: 520, y: 130, name: 'Imbiss' },
-  { x: 610, y: 90,  name: 'Vorland' },
-  { x: 690, y: 140, name: 'Kampf' },
-  { x: 770, y: 90,  name: 'Rätselduell' },
-  { x: 850, y: 130, name: 'Schatz' }
+  { x: 55,  y: 135, name: 'Schloss' },
+  { x: 135, y: 75,  name: 'Waffenladen' },
+  { x: 215, y: 145, name: 'Alchemie' },
+  { x: 295, y: 75,  name: 'Weggabelung' },
+  { x: 375, y: 145, name: 'Pferd Joe' },
+  { x: 455, y: 75,  name: 'Gemüsestand' },
+  { x: 535, y: 145, name: 'Imbiss' },
+  { x: 615, y: 75,  name: 'Drachenvorland' },
+  { x: 695, y: 145, name: 'Pfeilhagel' },
+  { x: 775, y: 75,  name: 'Rätselduell' },
+  { x: 855, y: 140, name: 'Schatzhöhle' }
 ];
 
 // ========================================================
@@ -372,9 +383,7 @@ class GameManager {
     this.xp = 0;
     this.level = 1;
     this.bossHp = 100;
-    this.inventory = [
-      { name: '🧭 Abenteurer-Kompass', desc: 'Zeigt stets den sichersten Pfad durch das Königreich Al Gebra.' }
-    ];
+    this.inventory = [];
     this.initElements();
     this.initEventListeners();
     this.renderMap();
@@ -394,6 +403,15 @@ class GameManager {
     this.btnNext = document.getElementById('btnNext');
     this.feedbackMsg = document.getElementById('feedbackMsg');
     this.questContent = document.getElementById('questContent');
+
+    // D20 Würfel
+    this.btnRollD20 = document.getElementById('btnRollD20');
+    this.diceModal = document.getElementById('diceModal');
+    this.btnRollAction = document.getElementById('btnRollAction');
+    this.btnCloseDice = document.getElementById('btnCloseDice');
+    this.diceVisual = document.getElementById('diceVisual');
+    this.diceResultNum = document.getElementById('diceResultNum');
+    this.diceResultText = document.getElementById('diceResultText');
 
     // XP & Boss & Inventar
     this.playerLevel = document.getElementById('playerLevel');
@@ -478,6 +496,10 @@ class GameManager {
   renderInventory() {
     if (!this.invSlots) return;
     this.invSlots.innerHTML = '';
+    if (this.inventory.length === 0) {
+      this.invSlots.innerHTML = '<span style="color: #94a3b8; font-size: 0.85rem; font-style: italic;">Noch leer – verdiene mächtige Ausrüstung auf deiner Quest!</span>';
+      return;
+    }
     this.inventory.forEach(item => {
       const it = typeof item === 'string' ? { name: item, desc: 'Ein wertvolles Ausrüstungsstück.' } : item;
       const el = document.createElement('div');
@@ -543,6 +565,64 @@ class GameManager {
       }
     });
 
+    // D20 Würfel Dialog öffnen
+    if (this.btnRollD20) {
+      this.btnRollD20.addEventListener('click', () => {
+        sounds.click();
+        this.diceResultText.textContent = 'Tippe auf Würfeln für mächtige Bonus-XP!';
+        this.btnRollAction.style.display = 'inline-flex';
+        this.btnRollAction.disabled = false;
+        this.btnCloseDice.style.display = 'none';
+        this.diceModal.classList.add('open');
+      });
+    }
+
+    // D20 Würfelwurf ausführen
+    if (this.btnRollAction) {
+      this.btnRollAction.addEventListener('click', () => {
+        this.btnRollAction.disabled = true;
+        this.diceVisual.classList.add('rolling');
+        sounds.dice();
+
+        let rolls = 0;
+        const interval = setInterval(() => {
+          this.diceResultNum.textContent = Math.floor(Math.random() * 20) + 1;
+          rolls++;
+          if (rolls > 12) {
+            clearInterval(interval);
+            this.diceVisual.classList.remove('rolling');
+            const finalRoll = Math.floor(Math.random() * 20) + 1;
+            this.diceResultNum.textContent = finalRoll;
+
+            if (finalRoll === 20) {
+              sounds.victory();
+              this.diceResultText.innerHTML = '🌟 <strong>NATURAL 20! LEGENDÄRER TREFFER!</strong><br>+150 Bonus-XP erhalten!';
+              this.addXp(150);
+            } else if (finalRoll >= 10) {
+              sounds.correct();
+              this.diceResultText.innerHTML = `⚔️ <strong>Kritischer Erfolg (Wurf: ${finalRoll})!</strong><br>+75 Bonus-XP erhalten!`;
+              this.addXp(75);
+            } else {
+              sounds.magic();
+              this.diceResultText.innerHTML = `🛡️ <strong>Guter Stoß (Wurf: ${finalRoll})!</strong><br>+40 Bonus-XP erhalten!`;
+              this.addXp(40);
+            }
+
+            this.btnRollAction.style.display = 'none';
+            this.btnCloseDice.style.display = 'inline-flex';
+          }
+        }, 70);
+      });
+    }
+
+    if (this.btnCloseDice) {
+      this.btnCloseDice.addEventListener('click', () => {
+        sounds.click();
+        this.diceModal.classList.remove('open');
+        this.btnNext.click();
+      });
+    }
+
     // Scratchpad canvas setup
     this.setupScratchpad();
 
@@ -569,6 +649,7 @@ class GameManager {
       this.showFeedback('🧙‍♀️ Mathemagie! Die Aufgabe wurde erfolgreich weggezaubert!', 'success');
       this.btnCheck.style.display = 'none';
       this.btnNext.classList.add('show');
+      if (this.btnRollD20) this.btnRollD20.classList.add('show');
       sounds.correct();
     } else if (pType === 'reveal') {
       const inputs = this.questContent.querySelectorAll('input');
@@ -620,29 +701,47 @@ class GameManager {
       svg.appendChild(activePath);
     }
 
-    // Draw Nodes
+    // Draw Nodes with High-Contrast Badges
     MAP_COORDS.forEach((coord, idx) => {
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.setAttribute('class', `map-node ${idx < this.currentStageIdx ? 'completed' : (idx === this.currentStageIdx ? 'active' : 'locked')}`);
+      const isActive = idx === this.currentStageIdx;
+      const isCompleted = idx < this.currentStageIdx;
+      g.setAttribute('class', `map-node ${isCompleted ? 'completed' : (isActive ? 'active' : 'locked')}`);
 
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('cx', coord.x);
       circle.setAttribute('cy', coord.y);
-      circle.setAttribute('r', idx === this.currentStageIdx ? '14' : '10');
+      circle.setAttribute('r', isActive ? '16' : '11');
 
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       text.setAttribute('x', coord.x);
       text.setAttribute('y', coord.y + 4);
+      text.setAttribute('class', 'node-num');
       text.textContent = (idx + 1).toString();
+
+      // Label Badge Pill
+      const isTop = coord.y > 110;
+      const badgeY = isTop ? (coord.y + 20) : (coord.y - 32);
+      const labelWidth = Math.max(72, coord.name.length * 7.5 + 16);
+      const badgeX = coord.x - (labelWidth / 2);
+
+      const badgeRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      badgeRect.setAttribute('x', badgeX);
+      badgeRect.setAttribute('y', badgeY);
+      badgeRect.setAttribute('width', labelWidth);
+      badgeRect.setAttribute('height', '20');
+      badgeRect.setAttribute('rx', '6');
+      badgeRect.setAttribute('class', 'map-badge-rect');
 
       const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       label.setAttribute('x', coord.x);
-      label.setAttribute('y', coord.y + (coord.y > 110 ? 24 : -16));
+      label.setAttribute('y', badgeY + 14);
       label.setAttribute('class', 'map-node-label');
-      label.textContent = coord.name;
+      label.textContent = (isActive ? '⭐ ' : '') + coord.name;
 
       g.appendChild(circle);
       g.appendChild(text);
+      g.appendChild(badgeRect);
       g.appendChild(label);
       svg.appendChild(g);
     });
@@ -667,6 +766,7 @@ class GameManager {
     // Reset Buttons & Feedback
     this.btnCheck.style.display = 'inline-flex';
     this.btnNext.classList.remove('show');
+    if (this.btnRollD20) this.btnRollD20.classList.remove('show');
     this.hideFeedback();
 
     let html = `
@@ -1066,9 +1166,10 @@ class GameManager {
         this.addItem('🥕 Möhren für Joe', 'Frische Möhren: Pferd Joe galoppiert voller Kraft!');
       }
 
-      this.showFeedback('🎉 Perfekt gerechnet! (+60 XP erhalten)', 'success');
+      this.showFeedback('🎉 Perfekt gerechnet! (+60 XP) – Würfle jetzt deinen D20 für Bonus-XP!', 'success');
       this.btnCheck.style.display = 'none';
       this.btnNext.classList.add('show');
+      if (this.btnRollD20) this.btnRollD20.classList.add('show');
     } else {
       sounds.wrong();
       this.showFeedback('🧐 Noch nicht ganz richtig! Überprüfe deine Rechnungen noch einmal (Tipp: Notizblock nutzen).', 'error');
