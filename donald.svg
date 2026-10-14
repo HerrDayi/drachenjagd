@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="dbg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#831843"/><stop offset="100%" stop-color="#500724"/></radialGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="url(#dbg)"/>
+  <!-- Chef Hat -->
+  <path d="M45,42 Q30,28 45,18 Q60,10 75,18 Q90,28 75,42 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="44" y="38" width="32" height="8" rx="2" fill="#e2e8f0"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="62" rx="21" ry="18" fill="#fbcfe8"/>
+  <!-- Mustache -->
+  <path d="M44,66 Q52,60 60,65 Q68,60 76,66 Q68,74 60,69 Q52,74 44,66 Z" fill="#78350f"/>
+  <!-- Eyes & Eyebrows -->
+  <circle cx="50" cy="56" r="2.5" fill="#0f172a"/>
+  <circle cx="70" cy="56" r="2.5" fill="#0f172a"/>
+  <!-- Burger / Pretzel Icon -->
+  <circle cx="24" cy="90" r="12" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="16" y="88" width="16" height="4" rx="2" fill="#dc2626"/>
+  <rect x="17" y="85" width="14" height="2" fill="#16a34a"/>
+</svg>

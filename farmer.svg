@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="fbg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#14532d"/><stop offset="100%" stop-color="#052e16"/></radialGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="url(#fbg)"/>
+  <!-- Straw Hat -->
+  <ellipse cx="60" cy="42" rx="40" ry="12" fill="#eab308" stroke="#ca8a04" stroke-width="2"/>
+  <path d="M42,40 Q60,18 78,40 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="60" rx="20" ry="18" fill="#fed7aa"/>
+  <!-- Rosy Cheeks & Smile -->
+  <circle cx="48" cy="64" r="4" fill="#f87171" opacity="0.6"/>
+  <circle cx="72" cy="64" r="4" fill="#f87171" opacity="0.6"/>
+  <path d="M52,66 Q60,74 68,66" stroke="#78350f" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Eyes -->
+  <path d="M48,56 Q52,52 56,56" stroke="#451a03" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M64,56 Q68,52 72,56" stroke="#451a03" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Clothes -->
+  <path d="M25,110 Q60,86 95,110 L95,120 L25,120 Z" fill="#0284c7"/>
+  <!-- Carrot in corner -->
+  <polygon points="95,75 108,105 102,108" fill="#ea580c" stroke="#c2410c" stroke-width="1.5"/>
+  <path d="M95,75 Q92,68 88,68 M95,75 Q96,66 98,65" stroke="#22c55e" stroke-width="2" fill="none"/>
+</svg>

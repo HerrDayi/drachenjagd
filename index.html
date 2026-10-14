@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Mathe-Quest: Die Drachenjagd</title>
+
+  <!-- iOS / iPad Web App Optimierung -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mathe-Quest">
+  <meta name="theme-color" content="#121826">
+
+  <!-- Google Fonts: Cinzel für Fantasy-RPG Look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Obere Navigations- & Statusleiste -->
+  <header class="game-header">
+    <div class="brand">
+      <span class="brand-icon">🐉</span>
+      <span class="brand-title">Mathe-Quest: Die Drachenjagd</span>
+    </div>
+
+    <div class="header-status">
+      <div id="heroBadge" class="badge">⚔️ Charakter wählen</div>
+      
+      <div class="xp-container" title="Dein Erfahrungslevel">
+        <div class="xp-label-row">
+          <span id="playerLevel">Stufe 1: Knappe</span>
+          <span id="playerXp">0 / 100 XP</span>
+        </div>
+        <div class="xp-bar-bg">
+          <div id="xpBarFill" class="xp-bar-fill"></div>
+        </div>
+      </div>
+
+      <button id="heroPowerBtn" class="btn-header btn-special" disabled title="Deine einmalige Spezialfähigkeit">
+        ⚡ Spezialfähigkeit
+      </button>
+      <button id="btnToggleScratchpad" class="btn-header" title="Schmierzettel zum Rechnen öffnen">
+        📝 Notizblock
+      </button>
+      <button id="btnSoundToggle" class="btn-header">
+        🔊 Ton: An
+      </button>
+    </div>
+  </header>
+
+  <main class="game-container">
+
+    <!-- BILDSCHIRM 1: Charakter-Auswahl -->
+    <section id="charSelectScreen" class="screen active">
+      <div class="intro-hero">
+        <h1>Willkommen zur Mathe-Quest!</h1>
+        <p>
+          Bist du bereit für ein aufregendes Abenteuer? Alles, was du dafür brauchst, sind deine Rechenkünste.
+          Königin Annalena Al Gebra benötigt deine Hilfe, um den gefürchteten Drachen Olaf aufzuhalten!
+        </p>
+        <p style="color: var(--gold); font-weight: 700;">
+          Wähle deinen Helden. Jeder Charakter besitzt eine mächtige Spezialfähigkeit, die du einmal im Abenteuer einsetzen darfst:
+        </p>
+      </div>
+
+      <div class="character-grid">
+        <!-- Rechenräuber -->
+        <div class="character-card" data-char-id="rechenraeuber">
+          <div class="char-avatar">🦹</div>
+          <div class="char-title">Rechenräuber</div>
+          <div class="char-power-label">Spezialfähigkeit:</div>
+          <div class="char-power-desc">Darf bei einer Aufgabe ein Ergebnis direkt aufdecken!</div>
+        </div>
+
+        <!-- Mathemagierin -->
+        <div class="character-card" data-char-id="mathemagierin">
+          <div class="char-avatar">🧙‍♀️</div>
+          <div class="char-title">Mathemagierin</div>
+          <div class="char-power-label">Spezialfähigkeit:</div>
+          <div class="char-power-desc">Darf eine knifflige Aufgabe einfach wegzaubern!</div>
+        </div>
+
+        <!-- Ergebniserfinderin -->
+        <div class="character-card" data-char-id="ergebniserfinderin">
+          <div class="char-avatar">💡</div>
+          <div class="char-title">Ergebniserfinderin</div>
+          <div class="char-power-label">Spezialfähigkeit:</div>
+          <div class="char-power-desc">Darf bei einer Aufgabe den Zauber-Taschenrechner nutzen!</div>
+        </div>
+
+        <!-- Zählzombie -->
+        <div class="character-card" data-char-id="zaehlzombie">
+          <div class="char-avatar">🧟</div>
+          <div class="char-title">Zählzombie</div>
+          <div class="char-power-label">Spezialfähigkeit:</div>
+          <div class="char-power-desc">Darf für eine Aufgabe die Fingerhilfe (Rechenweg) aufrufen!</div>
+        </div>
+      </div>
+
+      <div class="start-btn-container">
+        <button id="btnStartQuest" class="btn-primary" disabled style="opacity: 0.5;">
+          Abenteuer beginnen ➔
+        </button>
+      </div>
+    </section>
+
+
+    <!-- BILDSCHIRM 2: Das eigentliche RPG & Aufgaben -->
+    <section id="gameScreen" class="screen">
+      <!-- Boss Kampf HP Leiste (aktiviert bei Drachenbegegnungen) -->
+      <div id="bossBanner" class="boss-banner">
+        <div class="boss-header-row">
+          <span class="boss-name">🐲 BOSS: Drache Olaf der Schläfrige</span>
+          <span id="bossHpText" class="boss-hp-text">100 / 100 HP</span>
+        </div>
+        <div class="boss-hp-bg">
+          <div id="bossHpFill" class="boss-hp-fill"></div>
+        </div>
+      </div>
+
+      <!-- Interaktive RPG-Karte des Königreichs -->
+      <div class="map-panel">
+        <div class="map-header">
+          <div class="map-title">🗺️ Karte von Al Gebra</div>
+          <div id="mapProgressText" class="map-progress-text">Station 1 von 11</div>
+        </div>
+        <div class="map-container">
+          <svg id="mapSvg" class="map-svg" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet">
+            <!-- Wird dynamisch von game.js gerendert -->
+          </svg>
+        </div>
+      </div>
+
+      <!-- Story & Aufgaben-Karte -->
+      <div class="quest-layout">
+        <div class="quest-card">
+          <div id="questContent">
+            <!-- Dynamischer Aufgabeninhalt aus game.js -->
+          </div>
+
+          <div class="action-footer">
+            <div id="feedbackMsg" class="feedback-msg"></div>
+
+            <div class="buttons-row">
+              <button id="btnCheck" class="btn-check">
+                <span>Antwort prüfen ⚔️</span>
+              </button>
+              <button id="btnNext" class="btn-next">
+                <span>Weiterziehen ➔</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Rucksack-Inventar -->
+          <div class="inventory-panel">
+            <div class="inv-title">🎒 Dein Abenteurer-Rucksack:</div>
+            <div id="invSlots" class="inv-slots">
+              <!-- Dynamische Items -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BILDSCHIRM 3: Abschluss & Drachenjäger-Urkunde -->
+    <section id="victoryScreen" class="screen">
+      <div class="victory-card">
+        <h2 class="victory-title">🏆 Das Abenteuer ist bestanden!</h2>
+        <p style="font-size: 1.1rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 16px auto;">
+          Du hast den Drachen Olaf mit Scharfsinn und Rechenkunst überlistet und das Königreich gerettet!
+        </p>
+
+        <!-- Druckbare Urkunde -->
+        <div class="certificate">
+          <div class="cert-title">Offizielle Siegerurkunde</div>
+          <div class="cert-sub">der Großen Drachenjugendspiele von Al Gebra</div>
+          
+          <div class="cert-body">
+            Hiermit wird feierlich beurkundet, dass
+          </div>
+
+          <div id="certName" class="cert-hero-name">Tapfere Heldin / Tapferer Held</div>
+
+          <div class="cert-body">
+            in der ehrenvollen Rolle als <strong id="certChar" style="color: #78350f;">Held</strong><br>
+            alle mathematischen Prüfungen der Drachenjagd mit Bravour gelöst,
+            Pferd Joe mit Möhren gestärkt und Drache Olaf das Fürchten gelehrt hat!
+          </div>
+
+          <div class="cert-seal">🎖️ 📜 🐲</div>
+          <p style="font-size: 0.9rem; color: #78716c; margin-top: 10px;">
+            Ausgestellt am: <span id="certDate">Datum</span>
+          </p>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <button onclick="window.print()" class="btn-primary" style="font-size: 1.05rem; padding: 12px 24px;">
+            🖨️ Urkunde drucken / als PDF speichern
+          </button>
+          <button onclick="location.reload()" class="btn-header" style="font-size: 1.05rem; padding: 12px 24px;">
+            🔄 Nochmal spielen
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- MODAL: iPad Schmierzettel / Zeichenblock -->
+  <div id="scratchpadModal" class="modal-overlay">
+    <div class="scratchpad-container">
+      <div class="scratchpad-header">
+        <div class="scratchpad-title">📝 Notizblock & Nebenrechnungen</div>
+        <div class="scratchpad-toolbar">
+          <button id="btnPenMode" class="tool-btn active">✏️ Stift</button>
+          <button id="btnEraserMode" class="tool-btn">🧽 Radierer</button>
+          <button id="btnClearCanvas" class="tool-btn">🗑️ Leeren</button>
+          <button id="btnCloseScratchpad" class="tool-btn" style="background: #dc2626;">✖ Schließen</button>
+        </div>
+      </div>
+      <div class="scratchpad-canvas-wrapper">
+        <canvas id="scratchpadCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: Taschenrechner (Spezialfähigkeit Ergebniserfinderin) -->
+  <div id="calcModal" class="modal-overlay">
+    <div class="calc-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="font-family: var(--font-title); color: var(--gold); font-weight: 700;">💡 Zauber-Rechner</span>
+        <button id="btnCloseCalc" class="tool-btn" style="padding: 2px 8px;">✖</button>
+      </div>
+      <div id="calcDisplay" class="calc-display">0</div>
+      <div class="calc-grid">
+        <button class="calc-btn op" data-action="clear">C</button>
+        <button class="calc-btn op">÷</button>
+        <button class="calc-btn op">×</button>
+        <button class="calc-btn op">-</button>
+        <button class="calc-btn">7</button>
+        <button class="calc-btn">8</button>
+        <button class="calc-btn">9</button>
+        <button class="calc-btn op">+</button>
+        <button class="calc-btn">4</button>
+        <button class="calc-btn">5</button>
+        <button class="calc-btn">6</button>
+        <button class="calc-btn">,</button>
+        <button class="calc-btn">1</button>
+        <button class="calc-btn">2</button>
+        <button class="calc-btn">3</button>
+        <button class="calc-btn equals" data-action="equals">=</button>
+        <button class="calc-btn" style="grid-column: span 2;">0</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
